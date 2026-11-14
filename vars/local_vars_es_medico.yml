@@ -1,0 +1,58 @@
+# Perfil IIAB "biblioteca médica" (es) — servidor de contenido en LAN, no hotspot.
+#
+# Uso:
+#   sudo install -m 644 vars/local_vars_es_medico.yml /etc/iiab/local_vars.yml
+#   sudo iiab -f
+#
+# El password se define en la VM, no acá: este archivo va al repo.
+# Regla de IIAB: NO soporta desinstalar. Si un servicio ya figura en
+# /etc/iiab/iiab_state.yml, ponerle `_install: False` aborta el play
+# ("DISALLOWED ... WHEN 'X_installed' is defined"). Se deja `_install: True`
+# y se apaga solo `_enabled: False`.
+
+iiab_hostname: iiab
+iiab_domain: lan
+iiab_admin_user: iiab-admin
+iiab_admin_published_pwd: "CAMBIAR_EN_LA_VM"
+
+# --- Servicio principal ---
+kiwix_incl_apk: True          # el APK deja que los teléfonos se lleven la biblioteca
+
+# --- Nunca instalados (no hacen falta en una VM detrás del router) ---
+captiveportal_install: False
+captiveportal_enabled: False
+kolibri_install: False
+kolibri_enabled: False
+mediawiki_install: False
+mediawiki_enabled: False
+maps_install: False
+maps_enabled: False
+osm_vector_maps_install: False
+osm_vector_maps_enabled: False
+matomo_install: False
+matomo_enabled: False
+calibreweb_install: False
+calibreweb_enabled: False
+hostapd_install: False
+hostapd_enabled: False
+dnsmasq_install: False        # jamás: competiría con el DHCP del MikroTik
+dnsmasq_enabled: False
+bluetooth_install: False
+bluetooth_enabled: False
+
+# --- Instalados por la primera pasada: quedan apagados (IIAB no desinstala) ---
+tailscale_install: True
+tailscale_enabled: False
+remoteit_install: True
+remoteit_enabled: False
+awstats_install: True
+awstats_enabled: False
+
+# --- Observabilidad ---
+munin_install: True
+munin_enabled: True
+vnstat_install: True
+vnstat_enabled: True
+
+usb_lib_writable_sticks: False
+allow_www_data_poweroff: False
